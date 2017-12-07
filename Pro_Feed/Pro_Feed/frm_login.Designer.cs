@@ -87,6 +87,7 @@
             this.txt_Passwort.Name = "txt_Passwort";
             this.txt_Passwort.Size = new System.Drawing.Size(173, 20);
             this.txt_Passwort.TabIndex = 5;
+            this.txt_Passwort.UseSystemPasswordChar = true;
             // 
             // frm_login
             // 

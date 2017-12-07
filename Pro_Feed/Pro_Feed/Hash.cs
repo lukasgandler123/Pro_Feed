@@ -34,7 +34,7 @@ namespace Pro_Feed
             return string.Format("$MYHASH$V1${0}${1}", iterations, base64Hash);
         }
 
-        // Creates Hash DU stinkst Luki
+        // Creates Hash DU stinkst Luki ----- Ich hasse Sie auch
         public string HashPassword(string password)
         {
             return HashPassword(password, 1000);

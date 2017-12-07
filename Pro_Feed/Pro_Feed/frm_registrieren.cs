@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace Pro_Feed
 {
@@ -29,6 +29,33 @@ namespace Pro_Feed
                 if(txt_Email.Text.ToString().Contains("@"))
                 {
                     // Check username
+                    if(!txt_Benutzername.Text.ToString().Equals(""))
+                    {
+                        Hash h = new Hash();
+                        string passwort = h.HashPassword(txt_Passwort.Text.ToString(), 1000);
+                        SqlConnection con = new SqlConnection("server = (localdb)\\MSSQLLocalDB; Integrated Security = sspi; Database = Master");
+                        SqlCommand use = new SqlCommand("USE Pro_Feed", con);
+                        SqlCommand insert = new SqlCommand("INSERT INTO t_Benutzer (Username, Passwort, Email) " +
+                            "VALUES ('" + txt_Benutzername.Text.ToString() + "', '" + passwort + "', '" + txt_Email.Text.ToString() + "');", con);
+
+                        try
+                        {
+                            con.Open();
+                            use.ExecuteNonQuery();
+                            insert.ExecuteNonQuery();
+                            con.Close();
+                        }
+                        catch (SqlException ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+
+                        MessageBox.Show("Benutzer " + txt_Benutzername.Text.ToString() + " wurde erfolgreich angelegt!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Geben Sie einen gültigen Benutzernamen ein!");
+                    }
                 }
                 else
                 {

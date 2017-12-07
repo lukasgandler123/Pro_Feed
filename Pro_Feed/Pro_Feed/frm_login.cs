@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace Pro_Feed
 {
@@ -20,14 +20,33 @@ namespace Pro_Feed
 
         private void btn_Anmelden_Click(object sender, EventArgs e)
         {
-            Pro_FeedEntities ent = new Pro_FeedEntities();
+            SqlConnection con = new SqlConnection("server = (localdb)\\MSSQLLocalDB; Integrated Security = sspi; Database = Master");
+            SqlCommand use = new SqlCommand("USE Pro_Feed;", con);
+            SqlCommand select = new SqlCommand("SELECT Passwort FROM t_Benutzer WHERE Username = '" + txt_Benutzername.Text.ToString() + "';", con);
+
             Hash h = new Hash();
-            
-            // Select the Passwort
-            string passwort = ent.t_Benutzer.Where(u => u.Username.Equals(txt_Benutzername.Text.ToString())).Select(u => u.Passwort).ToString();
-            if(h.Verify(txt_Passwort.Text.ToString(), passwort))
+
+            try
             {
-                MessageBox.Show("Anmeldung erfolgreich!");
+                con.Open();
+                use.ExecuteNonQuery();
+                SqlDataReader reader = select.ExecuteReader();
+                while(reader.Read())
+                {
+                    if(h.Verify(txt_Passwort.Text.ToString(), reader[0].ToString()))
+                    {
+                        MessageBox.Show("Anmeldung erfolgreich!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Benutzer konnte nicht angemeldet werden. Prüfen Sie Ihren Benutzernamen oder Ihr Passwort.");
+                    }
+                }
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 

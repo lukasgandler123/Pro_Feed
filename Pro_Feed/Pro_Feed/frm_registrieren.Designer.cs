@@ -96,6 +96,7 @@
             this.txt_Passwort.Name = "txt_Passwort";
             this.txt_Passwort.Size = new System.Drawing.Size(176, 20);
             this.txt_Passwort.TabIndex = 6;
+            this.txt_Passwort.UseSystemPasswordChar = true;
             // 
             // txt_PasswortBestaetigen
             // 
@@ -103,6 +104,7 @@
             this.txt_PasswortBestaetigen.Name = "txt_PasswortBestaetigen";
             this.txt_PasswortBestaetigen.Size = new System.Drawing.Size(176, 20);
             this.txt_PasswortBestaetigen.TabIndex = 7;
+            this.txt_PasswortBestaetigen.UseSystemPasswordChar = true;
             // 
             // btn_Anmelden
             // 
