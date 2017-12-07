@@ -44,6 +44,7 @@
             this.btn_Anmelden.TabIndex = 0;
             this.btn_Anmelden.Text = "Anmelden";
             this.btn_Anmelden.UseVisualStyleBackColor = true;
+            this.btn_Anmelden.Click += new System.EventHandler(this.btn_Anmelden_Click);
             // 
             // btn_Registrieren
             // 
@@ -53,6 +54,7 @@
             this.btn_Registrieren.TabIndex = 1;
             this.btn_Registrieren.Text = "Registrieren";
             this.btn_Registrieren.UseVisualStyleBackColor = true;
+            this.btn_Registrieren.Click += new System.EventHandler(this.btn_Registrieren_Click);
             // 
             // lbl_Benutzername
             // 
